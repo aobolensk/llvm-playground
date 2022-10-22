@@ -17,6 +17,12 @@ jobs:
       run: sudo apt-get -y install g++ python3 ninja-build
     - name: Build llvm
       run: ./scripts/build.sh
+    - name: Archive artifacts
+      run: zip -r llvm-x86_64.zip llvm-project/install
+    - uses: actions/upload-artifact@v3
+      with:
+        name: llvm-x86_64
+        path: llvm-x86_64.zip
   build-llvm-aarch64:
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +37,9 @@ jobs:
       run: sudo apt-get -y install g++ python3 ninja-build g++-aarch64-linux-gnu
     - name: Build llvm
       run: ./scripts/build_cross_aarch64.sh
+    - name: Archive artifacts
+      run: zip -r llvm-aarch64.zip llvm-project/install_aarch64
+    - uses: actions/upload-artifact@v3
+      with:
+        name: llvm-aarch64
+        path: llvm-aarch64.zip
